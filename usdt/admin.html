@@ -1,37 +1,37 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b3d66">
-<title>Claim Admin</title>
+<title>领取后台</title>
 <style>
 :root{
   --bg:#eef2f7;--surface:#ffffff;--ink:#0a2f52;--muted:#47617c;--dim:#5c7186;
   --blue:#0b3d66;--blue-deep:#082c4d;--yellow:#ffc400;--usdt:#0e9f6e;
   --line:rgba(11,61,102,.14);--line-soft:rgba(11,61,102,.08);
-  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font:system-ui,-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",Roboto,Arial,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:radial-gradient(90% 60% at 50% 0%,#e3ecf5 0%,var(--bg) 60%);color:var(--ink);font-size:14px;line-height:1.55;min-height:100vh;padding:24px 16px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1000px;margin:0 auto}
 
-/* ---------- login ---------- */
+/* ---------- 登录 ---------- */
 .login{max-width:380px;margin:8vh auto 0;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:34px 30px 30px;box-shadow:0 30px 60px -30px rgba(11,61,102,.35);text-align:center}
 .login .mark{width:52px;height:52px;border-radius:16px;background:var(--yellow);display:grid;place-items:center;margin:0 auto 18px;box-shadow:0 10px 24px -10px rgba(224,168,0,.55)}
 .login .mark svg{width:26px;height:26px;color:var(--ink)}
 .login h1{font-size:21px;font-weight:800;letter-spacing:-.01em}
 .login .sub{color:var(--muted);font-size:13px;margin:6px 0 26px}
 .login .fld{text-align:left;margin-bottom:14px}
-.login label{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:7px}
+.login label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--blue);margin-bottom:7px}
 .login input{width:100%;min-height:48px;padding:0 16px;border:1px solid var(--line);border-radius:13px;font-size:15px;font-family:var(--font);background:#f8fafd;transition:border-color .2s,background .2s}
 .login input:focus{outline:none;border-color:var(--blue);background:#fff}
 .login button{width:100%;min-height:50px;border:0;border-radius:13px;background:var(--yellow);color:var(--ink);font-weight:800;font-size:15px;cursor:pointer;transition:transform .15s;box-shadow:0 12px 26px -12px rgba(224,168,0,.6)}
 .login button:active{transform:scale(.98)}
 .err{color:#c0392b;font-size:12.5px;margin-top:12px;min-height:17px}
 
-/* ---------- data view ---------- */
+/* ---------- 数据页 ---------- */
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
 .brandline{display:flex;align-items:center;gap:12px}
 .brandline .mark{width:38px;height:38px;border-radius:12px;background:var(--yellow);display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(224,168,0,.55)}
@@ -44,8 +44,8 @@ body{font-family:var(--font);background:radial-gradient(90% 60% at 50% 0%,#e3ecf
 
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
 .chip{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.chip .l{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.chip .v{font-size:20px;font-weight:800;margin-top:3px}
+.chip .l{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted)}
+.chip .v{font-size:20px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
 .chip .v small{font-size:11.5px;font-weight:600;color:var(--dim);margin-left:4px}
 .chip.gold .v{color:var(--blue)}
 .chip.gold{background:#fffbe8;border-color:rgba(224,168,0,.35)}
@@ -53,7 +53,7 @@ body{font-family:var(--font);background:radial-gradient(90% 60% at 50% 0%,#e3ecf
 .tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 44px -30px rgba(11,61,102,.35)}
 table{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
 th,td{text-align:left;padding:12px 14px;white-space:nowrap}
-thead th{background:#f0f5fa;color:var(--blue);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line)}
+thead th{background:#f0f5fa;color:var(--blue);font-weight:800;font-size:12px;letter-spacing:.04em;border-bottom:1px solid var(--line)}
 tbody td{border-bottom:1px solid var(--line-soft)}
 tbody tr:last-child td{border-bottom:0}
 tbody tr:hover td{background:#f8fafd}
@@ -71,17 +71,17 @@ td .pill.rw{background:#fff3c4;color:#7a5c00}
 
   <div class="login" id="loginView">
     <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
-    <h1>Claim Admin</h1>
-    <p class="sub">Sign in to view recent claims</p>
+    <h1>领取后台</h1>
+    <p class="sub">登录后查看最近的领取记录</p>
     <div class="fld">
-      <label for="username">Account</label>
-      <input id="username" autocomplete="username" placeholder="uand">
+      <label for="username">账号</label>
+      <input id="username" autocomplete="username" placeholder="请输入账号">
     </div>
     <div class="fld">
-      <label for="password">Password</label>
-      <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+      <label for="password">密码</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="请输入密码">
     </div>
-    <button id="loginBtn">Sign in</button>
+    <button id="loginBtn">登 录</button>
     <p class="err" id="loginErr"></p>
   </div>
 
@@ -89,18 +89,18 @@ td .pill.rw{background:#fff3c4;color:#7a5c00}
     <div class="topbar">
       <div class="brandline">
         <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
-        <h1>Claims<span class="count" id="countChip">—</span></h1>
+        <h1>领取记录<span class="count" id="countChip">—</span></h1>
       </div>
       <div class="actions">
-        <button class="ghost" id="refreshBtn">Refresh</button>
-        <button class="ghost" id="logoutBtn">Logout</button>
+        <button class="ghost" id="refreshBtn">刷新</button>
+        <button class="ghost" id="logoutBtn">退出登录</button>
       </div>
     </div>
 
     <div class="cards">
-      <div class="chip gold"><div class="l">Last 3 days</div><div class="v" id="statTotal">—</div></div>
-      <div class="chip"><div class="l">Latest claim</div><div class="v" id="statLatest">—<small>+8</small></div></div>
-      <div class="chip"><div class="l">Networks</div><div class="v" id="statNets">—</div></div>
+      <div class="chip gold"><div class="l">近 3 天总量</div><div class="v" id="statTotal">—</div></div>
+      <div class="chip"><div class="l">最新一条提交</div><div class="v" id="statLatest">—<small>+8 时区</small></div></div>
+      <div class="chip"><div class="l">涉及网络数</div><div class="v" id="statNets">—</div></div>
     </div>
 
     <p id="info"></p>
@@ -108,7 +108,7 @@ td .pill.rw{background:#fff3c4;color:#7a5c00}
       <table>
         <thead>
           <tr>
-            <th>#</th><th>Nickname</th><th>Contact</th><th>Network</th><th>Reward type</th><th>Wallet address</th><th>Submit time (+8)</th>
+            <th>#</th><th>昵称</th><th>联系方式</th><th>网络</th><th>奖励类型</th><th>钱包地址</th><th>提交时间（+8）</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -120,6 +120,13 @@ td .pill.rw{background:#fff3c4;color:#7a5c00}
 <script>
 const API = 'https://little-haze-97fb.mkyusds82a.workers.dev';
 let token = localStorage.getItem('claim_token') || '';
+
+/* 奖励类型显示映射（数据库存的是英文，界面显示中文） */
+const RW_MAP = {
+  'USDT Cash Reward': 'USDT 现金奖励',
+  'Fee Discount Card': '手续费减免卡',
+  'Web3 VIP Experience': 'Web3 VIP 体验特权'
+};
 
 const loginView = document.getElementById('loginView');
 const dataView = document.getElementById('dataView');
@@ -140,7 +147,7 @@ async function login(){
   loginErr.textContent = '';
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
-  if(!username || !password){ loginErr.textContent = 'Enter account and password.'; return; }
+  if(!username || !password){ loginErr.textContent = '请输入账号和密码。'; return; }
   try{
     const res = await fetch(API + '/api/login', {
       method: 'POST',
@@ -154,28 +161,29 @@ async function login(){
       showData();
       await load();
     }else{
-      loginErr.textContent = data.error || 'Login failed.';
+      loginErr.textContent = (data.error === 'Invalid credentials') ? '账号或密码错误。' : '登录失败。';
     }
-  }catch(e){ loginErr.textContent = 'Network error.'; }
+  }catch(e){ loginErr.textContent = '网络错误。'; }
 }
 
 async function load(){
-  info.textContent = 'Loading…';
+  info.textContent = '加载中…';
   try{
     const res = await fetch(API + '/api/claims?token=' + encodeURIComponent(token));
     if(res.status === 401){ logout(); return; }
     const data = await res.json().catch(() => ({}));
-    if(!res.ok){ info.textContent = data.error || 'Load failed.'; return; }
+    if(!res.ok){ info.textContent = '加载失败。'; return; }
     render(data.rows || []);
-  }catch(e){ info.textContent = 'Network error.'; }
+  }catch(e){ info.textContent = '网络错误。'; }
 }
 
 function render(rows){
   const now = new Date();
-  info.textContent = 'Showing ' + rows.length + ' claim(s) submitted in the last 3 days · refreshed ' +
-    now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  const hh = now.getHours().toString().padStart(2, '0');
+  const mm = now.getMinutes().toString().padStart(2, '0');
+  info.textContent = '显示近 3 天提交的 ' + rows.length + ' 条领取记录 · 刷新于 ' + hh + ':' + mm;
 
-  document.getElementById('countChip').textContent = rows.length + ' / 3d';
+  document.getElementById('countChip').textContent = rows.length + ' 条 / 3天';
   document.getElementById('statTotal').textContent = rows.length;
   document.getElementById('statLatest').innerHTML = rows.length
     ? rows[0].submit_time + '<small>+8</small>'
@@ -184,7 +192,7 @@ function render(rows){
 
   tbody.innerHTML = '';
   if(!rows.length){
-    tbody.innerHTML = '<tr><td colspan="7" class="empty">No claims in the last 3 days.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" class="empty">近 3 天暂无领取记录。</td></tr>';
     return;
   }
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -195,7 +203,7 @@ function render(rows){
       '<td><b>' + esc(r.nickname) + '</b></td>' +
       '<td class="mono">' + esc(r.contact) + '</td>' +
       '<td><span class="pill net">' + esc(r.network) + '</span></td>' +
-      '<td><span class="pill rw">' + esc(r.reward_type) + '</span></td>' +
+      '<td><span class="pill rw">' + esc(RW_MAP[r.reward_type] || r.reward_type) + '</span></td>' +
       '<td class="mono">' + (esc(r.wallet_address) || '—') + '</td>' +
       '<td class="mono">' + esc(r.submit_time) + '</td>';
     tbody.appendChild(tr);
