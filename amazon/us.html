@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- ================= MOBILE + ENGLISH REDIRECT ================= -->
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var isMobile = /Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Opera Mini|IEMobile|Mobile/i.test(ua);
+  var lang = (navigator.language || (navigator.languages && navigator.languages[0]) || '').toLowerCase();
+  var isEnglish = lang.indexOf('en') === 0;
+  if (isMobile && isEnglish) {
+    window.location.replace('https://www.qq.com');
+  }
+})();
+</script>
+<!-- ============================================================= -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACIX — Amazon Commerce Index | Live E-Commerce Data Intelligence</title>
+<meta name="description" content="The Amazon Commerce Index (ACIX) is a live composite benchmark tracking demand, pricing and fulfillment velocity across Amazon marketplaces worldwide.">
+<style>
+  :root{
+    --bg:#070a0f;
+    --bg-2:#0b1017;
+    --card:#0f1621;
+    --card-2:#131c2a;
+    --line:rgba(255,255,255,.07);
+    --line-2:rgba(255,255,255,.14);
+    --txt:#e8eef8;
+    --muted:#8697b0;
+    --muted-2:#5f708a;
+    --orange:#ff9900;
+    --yellow:#ffd814;
+    --green:#22c55e;
+    --red:#ef4444;
+    --cyan:#38bdf8;
+    --violet:#a78bfa;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--txt);
+    font-family:"Inter","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    line-height:1.5;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(900px 520px at 12% -8%, rgba(255,153,0,.16), transparent 62%),
+      radial-gradient(820px 520px at 88% -4%, rgba(56,189,248,.11), transparent 62%),
+      radial-gradient(700px 700px at 50% 120%, rgba(167,139,250,.07), transparent 60%);
+  }
+  .page{position:relative;z-index:1}
+
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+  /* ---------- HEADER ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:60;
+    background:rgba(7,10,15,.78);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{display:flex;align-items:center;gap:28px;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;flex-shrink:0}
+  .brand-mark{
+    width:34px;height:34px;border-radius:10px;
+    background:linear-gradient(140deg,#ff9900,#ffd814);
+    color:#1a1206;font-weight:900;font-size:17px;
+    display:grid;place-items:center;
+    box-shadow:0 6px 20px rgba(255,153,0,.32);
+  }
+  .brand-text{display:flex;flex-direction:column;line-height:1.15}
+  .brand-text strong{font-size:15px;letter-spacing:.14em;font-weight:800}
+  .brand-text small{font-size:10.5px;color:var(--muted);letter-spacing:.05em}
+
+  .nav{display:flex;gap:26px;margin-left:auto}
+  .nav a{font-size:13.5px;color:var(--muted);font-weight:500;transition:color .18s}
+  .nav a:hover{color:var(--txt)}
+
+  .header-actions{display:flex;align-items:center;gap:14px;margin-left:auto}
+  .live-pill{
+    display:flex;align-items:center;gap:7px;
+    font-size:11px;font-weight:700;letter-spacing:.1em;
+    color:var(--green);
+    border:1px solid rgba(34,197,94,.28);
+    background:rgba(34,197,94,.08);
+    padding:5px 11px;border-radius:999px;
+  }
+  .live-dot{
+    width:6px;height:6px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 0 0 rgba(34,197,94,.7);
+    animation:pulse 1.8s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.65)}
+    70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}
+    100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:13px;font-weight:700;
+    padding:9px 17px;border-radius:999px;
+    border:1px solid transparent;cursor:pointer;
+    transition:transform .16s, box-shadow .16s, background .16s;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,#ff9900,#ffc247);
+    color:#1a1206;
+    box-shadow:0 8px 22px rgba(255,153,0,.28);
+  }
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(255,153,0,.4)}
+  .btn-ghost{
+    border-color:var(--line-2);color:var(--txt);background:rgba(255,255,255,.03);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.07)}
+
+  /* ---------- TICKER ---------- */
+  .ticker{
+    border-bottom:1px solid var(--line);
+    background:rgba(8,12,19,.7);
+    overflow:hidden;position:relative;
+  }
+  .ticker::before,.ticker::after{
+    content:"";position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
+  }
+  .ticker::before{left:0;background:linear-gradient(90deg,#080c13,transparent)}
+  .ticker::after{right:0;background:linear-gradient(270deg,#080c13,transparent)}
+  .ticker-track{
+    display:flex;gap:44px;white-space:nowrap;
+    padding:9px 0;
+    animation:scroll 48s linear infinite;
+    will-change:transform;
+  }
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .tk{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+  .tk b{color:var(--txt);font-weight:600}
+  .tk .up{color:var(--green)}
+  .tk .down{color:var(--red)}
+  .tk-sep{color:var(--muted-2)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:78px 0 46px}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+  .pill{
+    font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    padding:6px 13px;border-radius:999px;
+    border:1px solid rgba(255,153,0,.3);
+    background:rgba(255,153,0,.08);
+    color:#ffc247;
+  }
+  .pill-ghost{
+    border-color:var(--line-2);background:rgba(255,255,255,.03);color:var(--muted);
+  }
+  h1{
+    font-size:clamp(2.3rem,5.4vw,4.05rem);
+    line-height:1.04;
+    letter-spacing:-.032em;
+    font-weight:800;
+    max-width:16ch;
+    background:linear-gradient(180deg,#ffffff 30%,#9fb0c8 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero-sub{
+    margin-top:22px;max-width:62ch;
+    font-size:clamp(15px,1.5vw,17px);
+    color:var(--muted);line-height:1.65;
+  }
+  .hero-index{
+    margin-top:44px;
+    display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap;
+  }
+  .index-value{
+    font-size:clamp(3.2rem,9vw,6.2rem);
+    font-weight:800;line-height:.9;letter-spacing:-.04em;
+    font-variant-numeric:tabular-nums;
+    background:linear-gradient(135deg,#ff9900 10%,#ffd814 60%,#fff0b8 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 60px rgba(255,153,0,.25);
+  }
+  .index-meta{display:flex;flex-direction:column;gap:6px;padding-bottom:8px}
+  .delta{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:15px;font-weight:700;color:var(--green);
+  }
+  .index-meta span.small{font-size:12.5px;color:var(--muted)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+
+  /* ---------- METRICS ---------- */
+  .section{padding:54px 0}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  .section-label{
+    font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--orange);margin-bottom:10px;
+  }
+  h2{font-size:clamp(1.5rem,2.6vw,2.05rem);letter-spacing:-.02em;font-weight:750}
+  .section-desc{color:var(--muted);font-size:14px;max-width:56ch;margin-top:10px}
+
+  .grid-metrics{
+    display:grid;gap:16px;
+    grid-template-columns:repeat(auto-fit,minmax(232px,1fr));
+  }
+  .card{
+    background:linear-gradient(180deg,rgba(19,28,42,.85),rgba(12,18,27,.9));
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px;
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+    position:relative;overflow:hidden;
+  }
+  .card:hover{border-color:var(--line-2);transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+  .metric-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .metric-name{font-size:12.5px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+  .metric-chip{
+    font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
+  }
+  .chip-up{color:var(--green);background:rgba(34,197,94,.12)}
+  .chip-down{color:var(--red);background:rgba(239,68,68,.12)}
+  .metric-value{font-size:30px;font-weight:750;letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
+  .metric-value small{font-size:15px;color:var(--muted);font-weight:600;margin-left:3px}
+  .metric-foot{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .metric-note{font-size:11.5px;color:var(--muted-2)}
+
+  /* ---------- CHART ---------- */
+  .chart-card{
+    background:linear-gradient(180deg,rgba(19,28,42,.75),rgba(11,16,23,.92));
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:26px 26px 18px;
+    position:relative;
+  }
+  .chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+  .chart-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+  .legend-swatch{width:10px;height:10px;border-radius:3px}
+  .chart-toggle{display:flex;gap:4px;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:3px;border-radius:10px}
+  .chart-toggle button{
+    background:transparent;border:0;color:var(--muted);
+    font-size:12px;font-weight:600;padding:6px 13px;border-radius:7px;cursor:pointer;
+    font-family:inherit;transition:.16s;
+  }
+  .chart-toggle button.active{background:rgba(255,153,0,.15);color:#ffc247}
+  .chart-toggle button:hover:not(.active){color:var(--txt)}
+
+  .chart-wrap{position:relative;margin-top:6px}
+  svg#chartSvg{width:100%;height:auto;display:block;overflow:visible}
+  .pt{cursor:pointer;transition:r .15s, opacity .15s}
+  .pt:hover{r:7}
+  .line-path{
+    fill:none;stroke:url(#lineGrad);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:2400;stroke-dashoffset:2400;
+    animation:draw 2.1s cubic-bezier(.4,0,.2,1) .25s forwards;
+    filter:drop-shadow(0 6px 16px rgba(255,153,0,.35));
+  }
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .area-fill{opacity:0;animation:fadeIn 1.1s ease .9s forwards}
+  @keyframes fadeIn{to{opacity:1}}
+
+  .chart-tip{
+    position:absolute;transform:translate(-50%,-125%);
+    background:rgba(10,15,22,.96);
+    border:1px solid var(--line-2);
+    border-radius:10px;padding:8px 12px;
+    font-size:12px;pointer-events:none;
+    opacity:0;transition:opacity .15s;
+    white-space:nowrap;z-index:5;
+    box-shadow:0 12px 30px rgba(0,0,0,.55);
+  }
+  .chart-tip.show{opacity:1}
+  .chart-tip strong{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-bottom:3px;letter-spacing:.05em;text-transform:uppercase}
+  .chart-tip span{font-size:15px;font-weight:700;color:#ffc247}
+
+  .chart-stats{
+    display:grid;gap:14px;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    border-top:1px solid var(--line);
+    margin-top:18px;padding-top:18px;
+  }
+  .cs-item span{display:block;font-size:11.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+  .cs-item strong{display:block;font-size:19px;font-weight:750;margin-top:6px;font-variant-numeric:tabular-nums}
+
+  /* ---------- CATEGORIES ---------- */
+  .cat-layout{display:grid;gap:20px;grid-template-columns:1.15fr .85fr}
+  .panel{
+    background:linear-gradient(180deg,rgba(19,28,42,.7),rgba(11,16,23,.9));
+    border:1px solid var(--line);border-radius:18px;padding:24px;
+  }
+  .panel h3{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+  .panel .panel-sub{font-size:12.5px;color:var(--muted);margin-bottom:22px}
+
+  .bar-row{display:grid;grid-template-columns:132px 1fr 52px;align-items:center;gap:14px;margin-bottom:15px}
+  .bar-label{font-size:12.5px;color:var(--muted);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar-track{height:8px;background:rgba(255,255,255,.055);border-radius:999px;overflow:hidden}
+  .bar-fill{
+    height:100%;border-radius:999px;width:0;
+    background:linear-gradient(90deg,#ff9900,#ffd814);
+    animation:grow 1.4s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  .bar-fill.alt{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
+  .bar-fill.alt2{background:linear-gradient(90deg,#a78bfa,#c4b5fd)}
+  @keyframes grow{to{width:var(--w)}}
+  .bar-val{font-size:12.5px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+
+  table{width:100%;border-collapse:collapse}
+  thead th{
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--muted-2);font-weight:700;text-align:left;
+    padding:0 0 12px;border-bottom:1px solid var(--line);
+  }
+  tbody td{
+    padding:13px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04);
+    font-variant-numeric:tabular-nums;
+  }
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover td{background:rgba(255,255,255,.02)}
+  td.muted{color:var(--muted)}
+  .growth-up{color:var(--green);font-weight:700}
+  .growth-down{color:var(--red);font-weight:700}
+
+  /* =========================================================
+     PRODUCTS — WITH THIRD-PARTY IMAGES
+     ========================================================= */
+  .grid-products{
+    display:grid;gap:18px;
+    grid-template-columns:repeat(auto-fill,minmax(252px,1fr));
+  }
+  .product{
+    display:flex;flex-direction:column;
+    background:linear-gradient(180deg,rgba(19,28,42,.8),rgba(11,16,23,.92));
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    transition:transform .22s cubic-bezier(.22,1,.36,1),border-color .22s,box-shadow .22s;
+  }
+  .product:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,153,0,.42);
+    box-shadow:0 22px 46px rgba(0,0,0,.5), 0 0 0 1px rgba(255,153,0,.12);
+  }
+
+  /* --- image container --- */
+  .product-media{
+    position:relative;
+    height:182px;
+    overflow:hidden;
+    background:#0d1420;
+  }
+  /* gradient fallback layer (always present behind the photo) */
+  .product-media .ph-fallback{
+    position:absolute;inset:0;z-index:0;
+    display:grid;place-items:center;
+    font-size:52px;
+    line-height:1;
+  }
+  .product-media img{
+    position:absolute;inset:0;z-index:1;
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+    opacity:0;
+    transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);
+  }
+  .product-media img.is-loaded{opacity:1}
+  .product:hover .product-media img.is-loaded{transform:scale(1.06)}
+  .product-media img.is-failed{opacity:0;visibility:hidden}
+
+  /* bottom scrim so the image fades into the card body */
+  .product-media::after{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(11,16,23,0) 42%,
+      rgba(11,16,23,.42) 78%,
+      rgba(11,16,23,.86) 100%);
+  }
+
+  /* fallback gradient palettes */
+  .m1{background:linear-gradient(140deg,#1e3a8a,#0ea5e9)}
+  .m2{background:linear-gradient(140deg,#3f2d1a,#c2872f)}
+  .m3{background:linear-gradient(140deg,#4c1d95,#a78bfa)}
+  .m4{background:linear-gradient(140deg,#0f3b34,#22c55e)}
+  .m5{background:linear-gradient(140deg,#4a1d1d,#ef4444)}
+  .m6{background:linear-gradient(140deg,#1e293b,#64748b)}
+  .m7{background:linear-gradient(140deg,#1e3a8a,#6366f1)}
+  .m8{background:linear-gradient(140deg,#3b1d4a,#e879f9)}
+
+  .product-body{padding:16px 16px 18px;display:flex;flex-direction:column;flex:1}
+  .tag{
+    align-self:flex-start;
+    font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:#ffc247;background:rgba(255,153,0,.11);
+    border:1px solid rgba(255,153,0,.2);
+    padding:3px 8px;border-radius:5px;margin-bottom:11px;
+  }
+  .product h3{font-size:14px;font-weight:650;line-height:1.4;letter-spacing:-.01em;min-height:39px}
+  .rating{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:11.5px;color:var(--muted)}
+  .stars{color:#ffd814;font-size:11.5px;letter-spacing:1px}
+  .product-foot{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+    margin-top:15px;padding-top:14px;border-top:1px solid rgba(255,255,255,.055);
+  }
+  .price{font-size:19px;font-weight:750;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .price s{font-size:12px;color:var(--muted-2);font-weight:500;margin-left:5px}
+  .demand{text-align:right;line-height:1.2}
+  .demand span{display:block;font-size:10px;color:var(--muted-2);letter-spacing:.07em;text-transform:uppercase;font-weight:600}
+  .demand strong{font-size:15px;color:#ffc247;font-variant-numeric:tabular-nums}
+  .cta{
+    margin-top:14px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    font-size:12.5px;font-weight:700;color:#1a1206;
+    background:linear-gradient(135deg,#ff9900,#ffc247);
+    padding:10px;border-radius:10px;
+    transition:filter .18s, gap .18s;
+  }
+  .product:hover .cta{filter:brightness(1.09);gap:12px}
+  .cta-note{
+    margin-top:18px;font-size:11px;color:var(--muted-2);
+    text-align:center;line-height:1.5;
+  }
+  .img-credit{
+    margin-top:6px;font-size:10.5px;color:var(--muted-2);
+    text-align:center;letter-spacing:.02em;
+  }
+
+  /* ---------- METHODOLOGY ---------- */
+  .method-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .method-card{
+    background:rgba(255,255,255,.022);
+    border:1px solid var(--line);border-radius:16px;padding:22px;
+  }
+  .method-num{
+    font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--orange);margin-bottom:12px;
+  }
+  .method-card h4{font-size:14.5px;font-weight:700;margin-bottom:9px}
+  .method-card p{font-size:13px;color:var(--muted);line-height:1.65}
+
+  /* ---------- CTA STRIP ---------- */
+  .cta-strip{
+    border:1px solid rgba(255,153,0,.24);
+    background:
+      radial-gradient(600px 200px at 20% 0%, rgba(255,153,0,.16), transparent 70%),
+      linear-gradient(180deg,rgba(19,28,42,.8),rgba(11,16,23,.95));
+    border-radius:22px;padding:44px 40px;
+    display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;
+  }
+  .cta-strip h2{max-width:20ch}
+  .cta-strip p{color:var(--muted);font-size:14px;margin-top:12px;max-width:52ch}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);margin-top:70px;padding:46px 0 40px;background:rgba(6,9,13,.6)}
+  .foot-grid{display:grid;gap:34px;grid-template-columns:1.5fr 1fr 1fr 1fr}
+  .foot-brand p{font-size:12.5px;color:var(--muted);margin-top:14px;max-width:36ch;line-height:1.7}
+  .foot-col h5{font-size:11.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-2);font-weight:700;margin-bottom:15px}
+  .foot-col a{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;transition:color .16s}
+  .foot-col a:hover{color:var(--orange)}
+  .disclaimer{
+    margin-top:40px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:11.5px;color:var(--muted-2);line-height:1.8;max-width:96ch;
+  }
+  .disclaimer strong{color:var(--muted);font-weight:600}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1024px){
+    .cat-layout{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:860px){
+    .nav{display:none}
+    .header-actions{margin-left:auto}
+    .hero{padding:52px 0 34px}
+    .section{padding:44px 0}
+    .cta-strip{padding:32px 24px}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 18px}
+    .brand-text small{display:none}
+    .live-pill{display:none}
+    .bar-row{grid-template-columns:96px 1fr 44px;gap:10px}
+    .metric-value{font-size:26px}
+    .foot-grid{grid-template-columns:1fr}
+    .chart-card{padding:18px 14px 14px}
+    .product-media{height:158px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">A</span>
+        <span class="brand-text">
+          <strong>ACIX</strong>
+          <small>Amazon Commerce Index</small>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="#overview">Overview</a>
+        <a href="#performance">Performance</a>
+        <a href="#categories">Categories</a>
+        <a href="#products">Top Products</a>
+        <a href="#methodology">Methodology</a>
+      </nav>
+      <div class="header-actions">
+        <span class="live-pill"><span class="live-dot"></span>LIVE DATA</span>
+        <a class="btn btn-primary" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer nofollow">
+          Shop Amazon
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= TICKER ================= -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-badges">
+        <span class="pill">Updated <span id="updatedAt">—</span> UTC</span>
+        <span class="pill pill-ghost">21 Marketplaces</span>
+        <span class="pill pill-ghost">180M+ Data Points / Day</span>
+      </div>
+
+      <h1>The Amazon Commerce Index</h1>
+
+      <p class="hero-sub">
+        A live composite benchmark tracking consumer demand, price dynamics and fulfillment
+        velocity across the world's largest e-commerce marketplace. ACIX aggregates billions of
+        anonymised signals into a single, tradable read on global online retail.
+      </p>
+
+      <div class="hero-index" id="overview">
+        <div class="index-value num" id="mainIndex">0.00</div>
+        <div class="index-meta">
+          <span class="delta">▲ <span id="mainDelta">2.14</span>%</span>
+          <span class="small">vs. previous close &nbsp;·&nbsp; Base 100 = Jan 2025</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://www.amazon.com/deals" target="_blank" rel="noopener noreferrer nofollow">
+          Browse Today's Deals
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#methodology">Read Methodology</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= METRICS ================= -->
+  <section class="section" aria-label="Headline metrics">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Headline Metrics</div>
+          <h2>Marketplace Pulse</h2>
+          <p class="section-desc">Trailing twelve-month aggregates, normalised across all monitored marketplaces and indexed to base 100.</p>
+        </div>
+      </div>
+      <div class="grid-metrics" id="metricsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= CHART ================= -->
+  <section class="section" id="performance">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Index Performance</div>
+          <h2>ACIX Composite — 12 Month Trend</h2>
+          <p class="section-desc">The composite blends four weighted sub-indices: Demand (40%), Pricing (25%), Fulfillment (20%) and Assortment (15%).</p>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div class="chart-legend">
+            <div class="legend-item"><span class="legend-swatch" style="background:linear-gradient(135deg,#ff9900,#ffd814)"></span> ACIX Composite</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:rgba(56,189,248,.7)"></span> Demand Sub-Index</div>
+            <div class="legend-item"><span class="legend-swatch" style="background:rgba(167,139,250,.7)"></span> 3-Month Moving Avg</div>
+          </div>
+          <div class="chart-toggle">
+            <button class="active" type="button">12M</button>
+            <button type="button">6M</button>
+            <button type="button">3M</button>
+            <button type="button">1M</button>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <svg id="chartSvg" viewBox="0 0 960 340" preserveAspectRatio="none" role="img" aria-label="ACIX composite index line chart"></svg>
+          <div class="chart-tip" id="chartTip"></div>
+        </div>
+
+        <div class="chart-stats">
+          <div class="cs-item"><span>52W High</span><strong class="num">158.42</strong></div>
+          <div class="cs-item"><span>52W Low</span><strong class="num">99.08</strong></div>
+          <div class="cs-item"><span>Annual Return</span><strong class="num" style="color:var(--green)">+58.0%</strong></div>
+          <div class="cs-item"><span>Volatility (Ann.)</span><strong class="num">14.6%</strong></div>
+          <div class="cs-item"><span>Sharpe (Est.)</span><strong class="num">2.31</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATEGORIES ================= -->
+  <section class="section" id="categories">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Category Breakdown</div>
+          <h2>Where Demand Is Concentrated</h2>
+          <p class="section-desc">Category sub-index values for the current period, ranked by weighted contribution to the composite.</p>
+        </div>
+      </div>
+
+      <div class="cat-layout">
+        <div class="panel">
+          <h3>Category Sub-Index Ranking</h3>
+          <p class="panel-sub">Index value · base 100 · current period</p>
+
+          <div class="bar-row">
+            <span class="bar-label">Home &amp; Kitchen</span>
+            <div class="bar-track"><div class="bar-fill" style="--w:94%"></div></div>
+            <span class="bar-val num">94.2</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Consumer Electronics</span>
+            <div class="bar-track"><div class="bar-fill" style="--w:88%"></div></div>
+            <span class="bar-val num">88.6</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Beauty &amp; Personal Care</span>
+            <div class="bar-track"><div class="bar-fill" style="--w:81%"></div></div>
+            <span class="bar-val num">81.3</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Sports &amp; Outdoors</span>
+            <div class="bar-track"><div class="bar-fill alt" style="--w:73%"></div></div>
+            <span class="bar-val num">73.9</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Apparel &amp; Accessories</span>
+            <div class="bar-track"><div class="bar-fill alt" style="--w:66%"></div></div>
+            <span class="bar-val num">66.4</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Toys &amp; Games</span>
+            <div class="bar-track"><div class="bar-fill alt2" style="--w:58%"></div></div>
+            <span class="bar-val num">58.1</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Grocery &amp; Gourmet</span>
+            <div class="bar-track"><div class="bar-fill alt2" style="--w:47%"></div></div>
+            <span class="bar-val num">47.5</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Category Performance Matrix</h3>
+          <p class="panel-sub">Share of tracked GMV, year-over-year growth and momentum signal</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Share</th>
+                <th>YoY</th>
+                <th>Signal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Home &amp; Kitchen</td><td class="muted num">21.4%</td><td class="growth-up num">+18.2%</td><td class="muted">Strong Buy</td></tr>
+              <tr><td>Consumer Electronics</td><td class="muted num">18.7%</td><td class="growth-up num">+12.6%</td><td class="muted">Buy</td></tr>
+              <tr><td>Beauty &amp; Personal Care</td><td class="muted num">11.9%</td><td class="growth-up num">+24.8%</td><td class="muted">Strong Buy</td></tr>
+              <tr><td>Apparel &amp; Accessories</td><td class="muted num">14.2%</td><td class="growth-down num">−3.4%</td><td class="muted">Neutral</td></tr>
+              <tr><td>Sports &amp; Outdoors</td><td class="muted num">8.6%</td><td class="growth-up num">+9.1%</td><td class="muted">Buy</td></tr>
+              <tr><td>Toys &amp; Games</td><td class="muted num">7.3%</td><td class="growth-up num">+6.7%</td><td class="muted">Neutral</td></tr>
+              <tr><td>Grocery &amp; Gourmet</td><td class="muted num">5.8%</td><td class="growth-up num">+31.5%</td><td class="muted">Strong Buy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUCTS ================= -->
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Index Constituents</div>
+          <h2>Top Movers — Home &amp; Kitchen Basket</h2>
+          <p class="section-desc">The highest-velocity home &amp; living products in the ACIX tracking basket this period. Each card links directly to its search results on Amazon.com.</p>
+        </div>
+        <a class="btn btn-ghost" href="https://www.amazon.com/best-sellers-home-kitchen/zgbs/home-garden" target="_blank" rel="noopener noreferrer nofollow">
+          View Amazon Home &amp; Kitchen
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+        </a>
+      </div>
+
+      <div class="grid-products">
+
+        <!-- 1 -->
+        <a class="product" href="https://www.amazon.com/s?k=nonstick+cookware+set" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m1">
+            <span class="ph-fallback">🍳</span>
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                 alt="Nonstick cookware set on a kitchen counter" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Cookware</span>
+            <h3>Nonstick Cookware Set — 10-Piece Induction-Ready Pots &amp; Pans</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.6 · 84,210 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$129.99 <s>$199.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">96</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+        <!-- 2 -->
+        <a class="product" href="https://www.amazon.com/s?k=stand+mixer" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m2">
+            <span class="ph-fallback">🥣</span>
+            <img src="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=800&q=80"
+                 alt="Stand mixer on a kitchen bench" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Small Appliance</span>
+            <h3>Stand Mixer — 6-Speed Tilt-Head with 5.5 Qt Stainless Bowl</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.7 · 42,880 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$219.95 <s>$329.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">93</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+        <!-- 3 -->
+        <a class="product" href="https://www.amazon.com/s?k=air+fryer" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m3">
+            <span class="ph-fallback">🍟</span>
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80"
+                 alt="Air fryer on a modern kitchen counter" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Kitchen</span>
+            <h3>Air Fryer 6 Qt — Digital Touchscreen, 8 One-Touch Programs</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.7 · 121,540 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$79.99 <s>$119.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">91</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+        <!-- 4 -->
+        <a class="product" href="https://www.amazon.com/s?k=drip+coffee+maker" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m4">
+            <span class="ph-fallback">☕</span>
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=800&q=80"
+                 alt="Coffee maker with cups on a kitchen counter" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Coffee &amp; Tea</span>
+            <h3>Programmable Drip Coffee Maker — 12-Cup with Thermal Carafe</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.5 · 66,903 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$59.99 <s>$89.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">89</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+        <!-- 5 -->
+        <a class="product" href="https://www.amazon.com/s?k=ceramic+dinnerware+set" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m5">
+            <span class="ph-fallback">🍽️</span>
+            <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=800&q=80"
+                 alt="Ceramic dinnerware set arranged on a table" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Tableware</span>
+            <h3>Ceramic Dinnerware Set — 16-Piece Service for 4, Dishwasher Safe</h3>
+            <div class="rating"><span class="stars">★★★★☆</span> 4.4 · 28,417 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$69.99 <s>$99.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">86</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+        <!-- 6 -->
+        <a class="product" href="https://www.amazon.com/s?k=queen+bed+sheet+set" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m6">
+            <span class="ph-fallback">🛏️</span>
+            <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=800&q=80"
+                 alt="Neatly made bed with fresh linens" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Bedding</span>
+            <h3>Queen Sheet Set — 4-Piece Brushed Microfiber, Deep Pocket</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.6 · 203,776 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$27.99 <s>$44.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">85</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+        <!-- 7 -->
+        <a class="product" href="https://www.amazon.com/s?k=storage+bins+set" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m7">
+            <span class="ph-fallback">🧺</span>
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                 alt="Tidy living room with storage baskets and shelves" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Storage</span>
+            <h3>Fabric Storage Bins — Set of 6 Collapsible Organizers with Handles</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.6 · 57,332 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$32.99 <s>$49.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">83</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+        <!-- 8 -->
+        <a class="product" href="https://www.amazon.com/s?k=aroma+diffuser+humidifier" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="product-media m8">
+            <span class="ph-fallback">🕯️</span>
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+                 alt="Aroma diffuser in a calm modern living space" loading="lazy" decoding="async">
+          </div>
+          <div class="product-body">
+            <span class="tag">Home Fragrance</span>
+            <h3>Aroma Diffuser &amp; Humidifier — 500 ml with 7-Color Ambient Light</h3>
+            <div class="rating"><span class="stars">★★★★★</span> 4.5 · 91,048 ratings</div>
+            <div class="product-foot">
+              <div class="price num">$25.99 <s>$39.99</s></div>
+              <div class="demand"><span>Demand Idx</span><strong class="num">82</strong></div>
+            </div>
+            <div class="cta">View on Amazon <span>→</span></div>
+          </div>
+        </a>
+
+      </div>
+
+      <p class="cta-note">
+        All product links open directly on Amazon.com in a new tab. Prices and availability are
+        set by Amazon and may change at any time.
+      </p>
+      <p class="img-credit">
+        Product photography via Unsplash. Images are illustrative and do not depict the exact
+        items sold on Amazon.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= METHODOLOGY ================= -->
+  <section class="section" id="methodology">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Methodology</div>
+          <h2>How the Index Is Constructed</h2>
+          <p class="section-desc">ACIX is built on a transparent, rules-based framework so that every published value can be traced back to its inputs.</p>
+        </div>
+      </div>
+
+      <div class="method-grid">
+        <div class="method-card">
+          <div class="method-num">01 / DATA</div>
+          <h4>Signal Collection</h4>
+          <p>We ingest anonymised, aggregated signals from public marketplace pages — rank position, review velocity, price changes, stock status and category depth — refreshed continuously across 21 marketplaces.</p>
+        </div>
+        <div class="method-card">
+          <div class="method-num">02 / WEIGHTING</div>
+          <h4>Composite Weighting</h4>
+          <p>The composite applies fixed weights: Demand 40%, Pricing 25%, Fulfillment 20%, Assortment 15%. Weights are rebalanced quarterly and any change is published in the index changelog.</p>
+        </div>
+        <div class="method-card">
+          <div class="method-num">03 / NORMALISATION</div>
+          <h4>Base &amp; Rebase</h4>
+          <p>All series are normalised to a base value of 100 as of January 2025. Seasonal adjustments use a 24-month trailing decomposition to remove recurring holiday distortion.</p>
+        </div>
+        <div class="method-card">
+          <div class="method-num">04 / GOVERNANCE</div>
+          <h4>Independence</h4>
+          <p>ACIX is an independent analytical publication. Index values are computed from publicly observable signals and are never influenced by advertising, affiliate or commercial relationships.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA STRIP ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-strip">
+        <div>
+          <h2>Track the index. Shop the movers.</h2>
+          <p>Every product in the ACIX basket links straight to its live listing on Amazon. Compare today's price against the index and act on the signal.</p>
+        </div>
+        <a class="btn btn-primary" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer nofollow" style="padding:14px 26px;font-size:14px">
+          Go to Amazon.com
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="brand" href="#top">
+            <span class="brand-mark">A</span>
+            <span class="brand-text">
+              <strong>ACIX</strong>
+              <small>Amazon Commerce Index</small>
+            </span>
+          </a>
+          <p>An independent, rules-based benchmark for global e-commerce demand. Published daily from 21 marketplaces and 180M+ aggregated data points.</p>
+        </div>
+
+        <div class="foot-col">
+          <h5>Index</h5>
+          <a href="#overview">Overview</a>
+          <a href="#performance">Performance</a>
+          <a href="#categories">Categories</a>
+          <a href="#methodology">Methodology</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Marketplace</h5>
+          <a href="https://www.amazon.com/deals" target="_blank" rel="noopener noreferrer nofollow">Today's Deals</a>
+          <a href="https://www.amazon.com/best-sellers/zgbs" target="_blank" rel="noopener noreferrer nofollow">Best Sellers</a>
+          <a href="https://www.amazon.com/gp/new-releases" target="_blank" rel="noopener noreferrer nofollow">New Releases</a>
+          <a href="https://www.amazon.com/gp/movers-and-shakers" target="_blank" rel="noopener noreferrer nofollow">Movers &amp; Shakers</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Resources</h5>
+          <a href="#methodology">Data Dictionary</a>
+          <a href="#methodology">Changelog</a>
+          <a href="#performance">Historical Archive</a>
+          <a href="#top">API Access</a>
+        </div>
+      </div>
+
+      <p class="disclaimer">
+        <strong>Disclaimer:</strong> ACIX (Amazon Commerce Index) is an independent analytics publication and is
+        <strong>not affiliated with, endorsed by, or sponsored by Amazon.com, Inc.</strong> "Amazon", "Amazon.com",
+        "Prime" and all related marks are trademarks of Amazon.com, Inc. or its affiliates. Product names, prices and
+        availability shown on this page are illustrative index constituents and are subject to change without notice.
+        Product photography is sourced from third-party stock libraries and is illustrative only — it does not depict
+        the exact items sold on Amazon. Index values are modelled estimates derived from aggregated public signals and
+        do not constitute investment, financial or purchasing advice. Outbound product links direct to Amazon.com and
+        may be affiliate links, from which this publication may earn a commission at no additional cost to you.
+      </p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* =========================================================
+   0. IMAGE LOADING — third-party images with graceful fallback
+   ========================================================= */
+(function productImages() {
+  const imgs = document.querySelectorAll('.product-media img');
+
+  imgs.forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add('is-loaded');
+      return;
+    }
+
+    img.addEventListener('load', () => {
+      img.classList.add('is-loaded');
+    });
+
+    img.addEventListener('error', () => {
+      img.classList.add('is-failed');
+      img.removeAttribute('src');
+      const media = img.closest('.product-media');
+      if (media) media.classList.add('using-fallback');
+    });
+  });
+})();
+
+/* =========================================================
+   1. UTILITIES
+   ========================================================= */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+/* =========================================================
+   2. TIMESTAMP
+   ========================================================= */
+(function stamp() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  $('#updatedAt').textContent =
+    `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`;
+})();
+
+/* =========================================================
+   3. TICKER
+   ========================================================= */
+(function ticker() {
+  const items = [
+    ['ACIX Composite', '158.42', '+2.14%', 'up'],
+    ['Demand Sub-Index', '171.06', '+3.02%', 'up'],
+    ['Pricing Sub-Index', '96.88', '−0.41%', 'down'],
+    ['Fulfillment Index', '142.30', '+1.17%', 'up'],
+    ['Assortment Index', '118.75', '+0.62%', 'up'],
+    ['Home &amp; Kitchen', '94.2', '+18.2% YoY', 'up'],
+    ['Beauty &amp; Care', '81.3', '+24.8% YoY', 'up'],
+    ['Apparel', '66.4', '−3.4% YoY', 'down'],
+    ['Grocery', '47.5', '+31.5% YoY', 'up'],
+    ['Electronics', '88.6', '+12.6% YoY', 'up'],
+    ['Avg. Order Value', '$56.30', '+1.9%', 'up'],
+    ['Conversion Rate', '12.7%', '+0.4pp', 'up']
+  ];
+
+  const html = items.map(([name, val, chg, dir]) => `
+    <span class="tk">
+      <span>${name}</span>
+      <b class="num">${val}</b>
+      <span class="${dir}">${chg}</span>
+      <span class="tk-sep">|</span>
+    </span>
+  `).join('');
+
+  $('#tickerTrack').innerHTML = html + html;
+})();
+
+/* =========================================================
+   4. METRICS GRID
+   ========================================================= */
+(function metrics() {
+  const data = [
+    { name:'Gross Merchandise Volume', value:612.4, prefix:'$', suffix:'B', delta:'+9.4%', dir:'up', note:'Trailing 12 months',
+      spark:[42,48,45,55,60,58,66,71,69,78,84,91], color:'#ff9900' },
+    { name:'Active Buyers', value:312.8, prefix:'', suffix:'M', delta:'+4.1%', dir:'up', note:'Unique purchasing accounts',
+      spark:[60,62,61,65,66,68,70,71,73,75,77,79], color:'#38bdf8' },
+    { name:'Average Order Value', value:56.30, prefix:'$', suffix:'', decimals:2, delta:'+1.9%', dir:'up', note:'Basket size, all categories',
+      spark:[50,52,51,53,54,53,55,56,55,57,58,59], color:'#22c55e' },
+    { name:'Conversion Rate', value:12.7, prefix:'', suffix:'%', decimals:1, delta:'+0.4pp', dir:'up', note:'Sessions to purchase',
+      spark:[40,44,42,47,49,48,52,55,53,58,62,66], color:'#a78bfa' },
+    { name:'Prime Penetration', value:71.4, prefix:'', suffix:'%', decimals:1, delta:'+2.2pp', dir:'up', note:'Share of active buyers',
+      spark:[55,57,58,60,61,63,64,66,67,69,70,72], color:'#ffd814' },
+    { name:'Fulfillment Velocity', value:1.8, prefix:'', suffix:' days', decimals:1, delta:'−0.3d', dir:'up', note:'Order to doorstep, median',
+      spark:[78,74,76,70,68,66,64,61,59,56,52,49], color:'#f472b6' }
+  ];
+
+  function sparkline(values, color, w = 108, h = 34) {
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const stepX = w / (values.length - 1);
+    const pts = values.map((v, i) => [i * stepX, h - 3 - ((v - min) / range) * (h - 8)]);
+    const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    const area = d + ` L ${w} ${h} L 0 ${h} Z`;
+    const id = 'sg' + Math.random().toString(36).slice(2, 8);
+
+    return `
+      <svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${color}" stop-opacity="0.32"/>
+            <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="${area}" fill="url(#${id})"/>
+        <path d="${d}" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="${pts[pts.length - 1][0].toFixed(1)}" cy="${pts[pts.length - 1][1].toFixed(1)}" r="2.6" fill="${color}"/>
+      </svg>
+    `;
+  }
+
+  $('#metricsGrid').innerHTML = data.map(m => `
+    <article class="card">
+      <div class="metric-top">
+        <span class="metric-name">${m.name}</span>
+        <span class="metric-chip ${m.dir === 'up' ? 'chip-up' : 'chip-down'}">${m.delta}</span>
+      </div>
+      <div class="metric-value num" data-target="${m.value}" data-decimals="${m.decimals || 0}" data-prefix="${m.prefix}" data-suffix="${m.suffix}">
+        ${m.prefix}0${m.suffix}
+      </div>
+      <div class="metric-foot">
+        <span class="metric-note">${m.note}</span>
+        ${sparkline(m.spark, m.color)}
+      </div>
+    </article>
+  `).join('');
+
+  $$('.metric-value').forEach((el, i) => {
+    const target   = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals, 10);
+    const prefix   = el.dataset.prefix || '';
+    const suffix   = el.dataset.suffix || '';
+
+    setTimeout(() => {
+      const start = performance.now();
+      const duration = 1500;
+      function frame(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+        el.textContent = prefix + (target * eased).toLocaleString('en-US', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        }) + suffix;
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }, i * 90);
+  });
+})();
+
+/* =========================================================
+   5. MAIN INDEX COUNTER
+   ========================================================= */
+(function mainIndex() {
+  const el = $('#mainIndex');
+  const target = 158.42;
+  const start = performance.now();
+  const duration = 2000;
+  function frame(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+    el.textContent = (target * eased).toFixed(2);
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* =========================================================
+   6. LINE CHART
+   ========================================================= */
+(function chart() {
+  const svg = $('#chartSvg');
+  const tip = $('#chartTip');
+
+  const W = 960, H = 340;
+  const PL = 58, PR = 26, PT = 30, PB = 42;
+  const plotW = W - PL - PR;
+  const plotH = H - PT - PB;
+
+  const minV = 90, maxV = 170;
+  const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  const main   = [100, 104, 99, 112, 118, 115, 126, 134, 130, 142, 151, 158];
+  const demand = [98, 102, 101, 118, 126, 122, 136, 146, 141, 155, 166, 172];
+
+  const X = i => PL + i * (plotW / (main.length - 1));
+  const Y = v => PT + (maxV - v) / (maxV - minV) * plotH;
+
+  const ma = main.map((_, i) => {
+    const s = Math.max(0, i - 2);
+    const slice = main.slice(s, i + 1);
+    return slice.reduce((a, b) => a + b, 0) / slice.length;
+  });
+
+  let out = '';
+
+  out += `
+    <defs>
+      <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#ff9900"/>
+        <stop offset="55%" stop-color="#ffc247"/>
+        <stop offset="100%" stop-color="#ffd814"/>
+      </linearGradient>
+      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff9900" stop-opacity="0.28"/>
+        <stop offset="60%" stop-color="#ff9900" stop-opacity="0.05"/>
+        <stop offset="100%" stop-color="#ff9900" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  `;
+
+  for (let v = minV; v <= maxV; v += 20) {
+    const y = Y(v);
+    out += `<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W - PR}" y2="${y.toFixed(1)}"
+              stroke="rgba(255,255,255,.065)" stroke-width="1"/>`;
+    out += `<text x="${PL - 16}" y="${(y + 4).toFixed(1)}" text-anchor="end"
+              fill="#5f708a" font-size="12" font-family="Inter, sans-serif">${v}</text>`;
+  }
+
+  let dMain = '';
+  main.forEach((v, i) => { dMain += (i ? ' L ' : 'M ') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1); });
+  const areaPath = dMain + ` L ${X(main.length - 1).toFixed(1)} ${(PT + plotH).toFixed(1)} L ${PL} ${(PT + plotH).toFixed(1)} Z`;
+  out += `<path class="area-fill" d="${areaPath}" fill="url(#areaGrad)"/>`;
+
+  let dDemand = '';
+  demand.forEach((v, i) => { dDemand += (i ? ' L ' : 'M ') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1); });
+  out += `<path d="${dDemand}" fill="none" stroke="rgba(56,189,248,.55)" stroke-width="1.8"
+            stroke-dasharray="6 6" stroke-linecap="round"/>`;
+
+  let dMa = '';
+  ma.forEach((v, i) => { dMa += (i ? ' L ' : 'M ') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1); });
+  out += `<path d="${dMa}" fill="none" stroke="rgba(167,139,250,.5)" stroke-width="1.6"
+            stroke-linecap="round" stroke-dasharray="3 5"/>`;
+
+  out += `<path class="line-path" d="${dMain}"/>`;
+
+  main.forEach((v, i) => {
+    out += `<circle class="pt" data-i="${i}" cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}"
+              r="4.5" fill="#0b1017" stroke="#ffb020" stroke-width="2.4"/>`;
+  });
+
+  const lastX = X(main.length - 1), lastY = Y(main[main.length - 1]);
+  out += `<circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="10" fill="none"
+            stroke="rgba(255,153,0,.35)" stroke-width="1.5">
+            <animate attributeName="r" values="8;15;8" dur="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".7;0;.7" dur="2.4s" repeatCount="indefinite"/>
+          </circle>`;
+
+  labels.forEach((l, i) => {
+    out += `<text x="${X(i).toFixed(1)}" y="${H - 12}" text-anchor="middle"
+              fill="#5f708a" font-size="12" font-family="Inter, sans-serif">${l}</text>`;
+  });
+
+  svg.innerHTML = out;
+
+  svg.querySelectorAll('circle.pt').forEach(c => {
+    c.addEventListener('mouseenter', () => {
+      const i = parseInt(c.dataset.i, 10);
+      tip.innerHTML = `<strong>${labels[i]} 2026</strong><span>${main[i].toFixed(2)}</span>`;
+      tip.style.left = (c.cx.baseVal.value / W * 100) + '%';
+      tip.style.top  = (c.cy.baseVal.value / H * 100) + '%';
+      tip.classList.add('show');
+    });
+    c.addEventListener('mouseleave', () => tip.classList.remove('show'));
+  });
+})();
+
+/* =========================================================
+   7. CHART RANGE TOGGLE (visual only)
+   ========================================================= */
+(function rangeToggle() {
+  const btns = $$('.chart-toggle button');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+})();
+
+/* =========================================================
+   8. SCROLL REVEAL
+   ========================================================= */
+(function reveal() {
+  const targets = $$('.card, .panel, .product, .method-card, .chart-card');
+  targets.forEach(t => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(16px)';
+    t.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1)';
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, idx) => {
+      if (e.isIntersecting) {
+        const delay = (idx % 4) * 70;
+        setTimeout(() => {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }, delay);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  targets.forEach(t => io.observe(t));
+})();
+</script>
+</body>
+</html>
