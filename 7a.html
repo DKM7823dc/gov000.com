@@ -66,7 +66,7 @@
             const isFromGoogle = isFromGoogleAds || isFromGoogleSearch;
          
             // 4. 终极审判：带 kw 参数 + 是谷歌来的
-            if (isFromGoogle && kw) {
+            if (isFromGoogle) {
                 hasTriggered = true;
                 document.removeEventListener('mousemove', handleMouseMove);
                     
